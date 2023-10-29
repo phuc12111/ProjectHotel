@@ -26,10 +26,10 @@ CREATE TABLE service (
 );
 
 CREATE TABLE manage (
-    manage_id INT PRIMARY KEY,
     employee_code VARCHAR(50) REFERENCES staff(employee_code),
     room_code INT REFERENCES room(room_code),
-    service_code INT REFERENCES service(service_code)
+    service_code INT REFERENCES service(service_code),
+	PRIMARY KEY(employee_code, room_code, service_code)
 );
 
 CREATE TABLE customer (
@@ -68,6 +68,7 @@ CREATE TABLE bill (
 CREATE TABLE rent_room (
     rent_id INT PRIMARY KEY,
     customer_code VARCHAR(50) REFERENCES customer(customer_code),
+	room_code INT REFERENCES room(room_code),
     start_date DATE NOT NULL,
     end_date DATE NOT NULL
 );
@@ -75,6 +76,7 @@ CREATE TABLE rent_room (
 CREATE TABLE book_room (
     book_id INT PRIMARY KEY,
     customer_code VARCHAR(50) REFERENCES customer(customer_code),
+	room_code INT REFERENCES room(room_code),
     start_date_book DATE NOT NULL,
     deposits INT NOT NULL
 );
