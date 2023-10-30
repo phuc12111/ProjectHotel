@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package hotelmanager;
+package component;
 
 import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
 import java.sql.Connection;
@@ -26,20 +26,25 @@ public class Register extends javax.swing.JFrame {
     /**
      * Creates new form Register
      */
-    
     private DefaultListModel<String> classListModel;
     private JList<String> classList;
+    private final SQLServerDataSource ds;
 
     public Register() {
         initComponents();
-        
-
+        ds = new SQLServerDataSource();
+        ds.setUser("sa");
+        ds.setPassword("sqladmin");
+        ds.setDatabaseName("HotelManager");
+        ds.setServerName("DESKTOP-31C7ISK\\SQLEXPRESS");
+        ds.setPortNumber(1433);
+        ds.setEncrypt(false);
         listModel = new DefaultListModel<>();
         listroom.setModel(listModel);
         loadDataFromDatabase();
     }
-    
-    public String Customer_id(){
+
+    public String Customer_id() {
         return txtcccd.getText();
     }
 
@@ -253,7 +258,6 @@ public class Register extends javax.swing.JFrame {
                     // Kết thúc giao dịch và lưu các thay đổi
                     connection.commit();
 
-                    
                     JOptionPane.showMessageDialog(this, "Đăng kí phòng thành công!");
                     String id = Customer_id();
                     Sirvice si = new Sirvice(id);

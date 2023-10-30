@@ -19,13 +19,21 @@ public class Sirvice extends javax.swing.JPanel {
     /**
      * Creates new form Sirvice
      */
-
+    private final SQLServerDataSource ds;
     private final List<String> selectedServices;
+    
 
     public Sirvice() {
         initComponents();
+        ds = new SQLServerDataSource();
+        ds.setUser("sa");
+        ds.setPassword("sqladmin");
+        ds.setDatabaseName("HotelManager");
+        ds.setServerName("DESKTOP-31C7ISK\\SQLEXPRESS");
+        ds.setPortNumber(1433);
+        ds.setEncrypt(false);
+        selectedServices = new ArrayList<>();
         
-
     }
 
     /**
