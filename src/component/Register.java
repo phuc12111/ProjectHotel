@@ -1,6 +1,6 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package component;
 
@@ -16,19 +16,20 @@ import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 
 /**
  *
  * @author Admin
  */
-public class Register extends javax.swing.JFrame {
+public class Register extends javax.swing.JPanel {
 
     /**
      * Creates new form Register
      */
-    private DefaultListModel<String> classListModel;
-    private JList<String> classList;
     private final SQLServerDataSource ds;
+    private DefaultListModel<String> listModel;
 
     public Register() {
         initComponents();
@@ -39,32 +40,27 @@ public class Register extends javax.swing.JFrame {
         ds.setServerName("DESKTOP-31C7ISK\\SQLEXPRESS");
         ds.setPortNumber(1433);
         ds.setEncrypt(false);
+
         listModel = new DefaultListModel<>();
         listroom.setModel(listModel);
+
         loadDataFromDatabase();
     }
 
-    public String Customer_id() {
-        return txtcccd.getText();
-    }
-
-    DefaultListModel<String> listModel = new DefaultListModel<>();
-
     private void loadDataFromDatabase() {
         try (Connection connection = ds.getConnection()) {
-            // Truy vấn SQL để lấy danh sách các lớp thỏa mãn điều kiện
             String selectSql = "SELECT room_name FROM room WHERE status = 1";
             try (PreparedStatement selectStatement = connection.prepareStatement(selectSql)) {
                 ResultSet resultSet = selectStatement.executeQuery();
 
                 while (resultSet.next()) {
-                    String className = resultSet.getString("room_name");
-                    listModel.addElement(className);
+                    String roomName = resultSet.getString("room_name");
+                    listModel.addElement(roomName);
                 }
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Lỗi kết nối đến cơ sở dữ liệu: " + ex.getMessage());
+            JOptionPane.showMessageDialog(this, "Error connecting to database: " + ex.getMessage());
         }
     }
 
@@ -77,250 +73,287 @@ public class Register extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
         txtcccd = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
         txtten = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
         txtphone = new javax.swing.JTextField();
-        btn = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        txtstart = new javax.swing.JTextField();
+        btn = new javax.swing.JToggleButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         listroom = new javax.swing.JList<>();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        txtstart = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(249, 249, 249));
+        setPreferredSize(new java.awt.Dimension(900, 500));
+        setVerifyInputWhenFocusTarget(false);
 
-        btn.setText("Dang ki");
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel1.setText("Identity card");
+
+        txtcccd.setBackground(new java.awt.Color(239, 239, 239));
+        txtcccd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtcccdActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel2.setText("Full name");
+
+        txtten.setBackground(new java.awt.Color(239, 239, 239));
+        txtten.setToolTipText("Please enter");
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel3.setText("Phone");
+
+        txtphone.setBackground(new java.awt.Color(239, 239, 239));
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel4.setText("Start date");
+
+        txtstart.setBackground(new java.awt.Color(239, 239, 239));
+
+        btn.setBackground(new java.awt.Color(204, 255, 204));
+        btn.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btn.setText("Register");
         btn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnActionPerformed(evt);
             }
         });
 
+        listroom.setBackground(new java.awt.Color(249, 249, 249));
         jScrollPane1.setViewportView(listroom);
 
-        jLabel1.setText("nhap cccd");
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel5.setText("BOOK ZOOM");
 
-        jLabel2.setText("ten");
+        jLabel6.setText("YYYY/MM/DD");
 
-        jLabel3.setText("phone");
-
-        jLabel4.setText("start date");
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(39, 39, 39)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(135, 135, 135)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
                             .addComponent(jLabel4)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel1))
-                        .addGap(38, 38, 38)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtstart, javax.swing.GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE)
-                            .addComponent(txtphone, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(txtten, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(txtcccd, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(142, 142, 142)
-                        .addComponent(btn)))
-                .addContainerGap(61, Short.MAX_VALUE))
+                            .addComponent(jLabel2))
+                        .addGap(86, 86, 86)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(txtphone, javax.swing.GroupLayout.DEFAULT_SIZE, 219, Short.MAX_VALUE)
+                                    .addComponent(txtten)
+                                    .addComponent(txtstart))
+                                .addGap(98, 98, 98))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel5)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(67, 67, 67)
+                                .addComponent(txtcccd)))
+                        .addGap(98, 98, 98)))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(51, 51, 51))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(326, 326, 326)
+                .addComponent(btn, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(43, 43, 43)
+                        .addComponent(jLabel5))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(124, 124, 124)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel1)
+                                    .addComponent(txtcccd, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(40, 40, 40)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(txtten, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel2))
+                                .addGap(36, 36, 36)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(txtphone, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel3))
+                                .addGap(41, 41, 41)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel4)
+                                    .addComponent(txtstart, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
+                .addComponent(btn)
+                .addGap(31, 31, 31))
+        );
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(txtcccd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel1))
-                                .addGap(62, 62, 62))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel2)
-                                .addComponent(txtten, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(32, 32, 32)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtphone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3)))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(26, 26, 26)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtstart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
-                .addGap(31, 31, 31)
-                .addComponent(btn)
-                .addContainerGap(30, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-
-        pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActionPerformed
 
+    private void btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActionPerformed
         String cccd = txtcccd.getText();
         String ten = txtten.getText();
         String phone = txtphone.getText();
         String start = txtstart.getText(); // Ngày bắt đầu nhận phòng
 
-        // Lấy mã phòng được chọn từ danh sách
-        String selectedRoom = listroom.getSelectedValue();
+        if (cccd.length() > 10) {
 
-        if (selectedRoom == null) {
-            JOptionPane.showMessageDialog(this, "Vui lòng chọn phòng trước khi đăng kí.");
-            return;
-        }
+            // Lấy mã phòng được chọn từ danh sách
+            String selectedRoom = listroom.getSelectedValue();
 
-        try (var connection = ds.getConnection()) {
-            // Bắt đầu một giao dịch
-            connection.setAutoCommit(false);
+            if (selectedRoom == null) {
+                JOptionPane.showMessageDialog(this, "Please select a room before registering.");
+                return;
+            }
 
-            // Kiểm tra xem giá trị cccd đã tồn tại trong bảng customer hay chưa
-            String checkCustomerSql = "SELECT customer_code FROM customer WHERE customer_code = ?";
-            boolean customerExists = false;
+            try (var connection = ds.getConnection()) {
+                // Bắt đầu một giao dịch
+                connection.setAutoCommit(false);
 
-            try (PreparedStatement checkCustomerStatement = connection.prepareStatement(checkCustomerSql)) {
-                checkCustomerStatement.setString(1, cccd);
-                ResultSet customerResult = checkCustomerStatement.executeQuery();
+                // Kiểm tra xem giá trị cccd đã tồn tại trong bảng customer hay chưa
+                String checkCustomerSql = "SELECT customer_code FROM customer WHERE customer_code = ?";
+                boolean customerExists = false;
 
-                if (customerResult.next()) {
-                    customerExists = true;
+                try (PreparedStatement checkCustomerStatement = connection.prepareStatement(checkCustomerSql)) {
+                    checkCustomerStatement.setString(1, cccd);
+                    ResultSet customerResult = checkCustomerStatement.executeQuery();
+
+                    if (customerResult.next()) {
+                        customerExists = true;
+                    }
                 }
-            }
 
-            if (!customerExists) {
-                // Nếu giá trị cccd không tồn tại trong bảng customer, hãy thêm nó vào bảng customer trước
-                String insertCustomerSql = "INSERT INTO customer (customer_code, customer_name, customer_phone) VALUES (?, ?, ?)";
+                if (!customerExists) {
+                    // Nếu giá trị cccd không tồn tại trong bảng customer, hãy thêm nó vào bảng customer trước
+                    String insertCustomerSql = "INSERT INTO customer (customer_code, customer_name, customer_phone) VALUES (?, ?, ?)";
 
-                try (PreparedStatement insertCustomerStatement = connection.prepareStatement(insertCustomerSql)) {
-                    insertCustomerStatement.setString(1, cccd);
-                    insertCustomerStatement.setString(2, ten);
-                    insertCustomerStatement.setString(3, phone);
+                    try (PreparedStatement insertCustomerStatement = connection.prepareStatement(insertCustomerSql)) {
+                        insertCustomerStatement.setString(1, cccd);
+                        insertCustomerStatement.setString(2, ten);
+                        insertCustomerStatement.setString(3, phone);
 
-                    insertCustomerStatement.executeUpdate();
+                        insertCustomerStatement.executeUpdate();
+                    }
                 }
-            }
 
-            // Tiếp tục với việc thêm thông tin đăng ký phòng vào bảng use_room
-            String insertBookingSql = "INSERT INTO use_room (customer_code, room_code, check_in_date, check_out_date, use_room_id) "
-                    + "VALUES (?, ?, ?, NULL, ?)"; // Ngày kết thúc là null khi chưa trả phòng
+                // Tiếp tục với việc thêm thông tin đăng ký phòng vào bảng use_room
+                String insertBookingSql = "INSERT INTO use_room (customer_code, room_code, check_in_date, check_out_date, use_room_id) "
+                        + "VALUES (?, ?, ?, NULL, ?)"; // Ngày kết thúc là null khi chưa trả phòng
 
-            // Lấy mã phòng từ tên phòng đã chọn
-            String getRoomCodeSql = "SELECT room_code FROM room WHERE room_name = ?";
-            int roomId = -1; // Mã phòng
+                // Lấy mã phòng từ tên phòng đã chọn
+                String getRoomCodeSql = "SELECT room_code FROM room WHERE room_name = ?";
+                int roomId = -1; // Mã phòng
 
-            try (PreparedStatement getRoomCodeStatement = connection.prepareStatement(getRoomCodeSql)) {
-                getRoomCodeStatement.setString(1, selectedRoom);
-                ResultSet roomCodeResult = getRoomCodeStatement.executeQuery();
+                try (PreparedStatement getRoomCodeStatement = connection.prepareStatement(getRoomCodeSql)) {
+                    getRoomCodeStatement.setString(1, selectedRoom);
+                    ResultSet roomCodeResult = getRoomCodeStatement.executeQuery();
 
-                if (roomCodeResult.next()) {
-                    roomId = roomCodeResult.getInt("room_code");
+                    if (roomCodeResult.next()) {
+                        roomId = roomCodeResult.getInt("room_code");
+                    }
                 }
-            }
 
-            // Chuyển đổi ngày bắt đầu từ chuỗi sang kiểu java.sql.Date
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            java.util.Date parsedDate = null;
-            try {
-                parsedDate = dateFormat.parse(start);
-            } catch (ParseException ex) {
-                Logger.getLogger(Register.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            java.sql.Date sqlStartDate = new java.sql.Date(parsedDate.getTime());
-
-            try (PreparedStatement insertBookingStatement = connection.prepareStatement(insertBookingSql)) {
-                insertBookingStatement.setString(1, cccd); // Sử dụng cccd làm giá trị cho customer_code
-                insertBookingStatement.setInt(2, roomId);
-                insertBookingStatement.setDate(3, sqlStartDate); // Ngày bắt đầu nhận phòng
-
-                // Tạo giá trị ngẫu nhiên cho use_room_id (bạn có thể thay thế phần này bằng cách xác định một giá trị duy nhất)
-                int useRoomId = (int) (Math.random() * 1000000);
-                insertBookingStatement.setInt(4, useRoomId);
-
-                insertBookingStatement.executeUpdate();
-
-                // Cập nhật trạng thái phòng thành 0
-                String updateRoomStatusSql = "UPDATE room SET status = 0 WHERE room_code = ?";
-                try (PreparedStatement updateRoomStatusStatement = connection.prepareStatement(updateRoomStatusSql)) {
-                    updateRoomStatusStatement.setInt(1, roomId);
-                    updateRoomStatusStatement.executeUpdate();
-
-                    // Kết thúc giao dịch và lưu các thay đổi
-                    connection.commit();
-
-                    JOptionPane.showMessageDialog(this, "Đăng kí phòng thành công!");
-                    String id = Customer_id();
-                    Sirvice si = new Sirvice(id);
-                    si.setVisible(true);
-                    this.dispose();
+                // Chuyển đổi ngày bắt đầu từ chuỗi sang kiểu java.sql.Date
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                java.util.Date parsedDate = null;
+                try {
+                    parsedDate = dateFormat.parse(start);
+                } catch (ParseException ex) {
+                    Logger.getLogger(Register.class.getName()).log(Level.SEVERE, null, ex);
                 }
+                java.sql.Date sqlStartDate = new java.sql.Date(parsedDate.getTime());
+
+                try (PreparedStatement insertBookingStatement = connection.prepareStatement(insertBookingSql)) {
+                    insertBookingStatement.setString(1, cccd); // Sử dụng cccd làm giá trị cho customer_code
+                    insertBookingStatement.setInt(2, roomId);
+                    insertBookingStatement.setDate(3, sqlStartDate); // Ngày bắt đầu nhận phòng
+
+                    // Tạo giá trị ngẫu nhiên cho use_room_id (bạn có thể thay thế phần này bằng cách xác định một giá trị duy nhất)
+                    int useRoomId = (int) (Math.random() * 1000000);
+                    insertBookingStatement.setInt(4, useRoomId);
+
+                    insertBookingStatement.executeUpdate();
+
+                    // Cập nhật trạng thái phòng thành 0
+                    String updateRoomStatusSql = "UPDATE room SET status = 0 WHERE room_code = ?";
+                    try (PreparedStatement updateRoomStatusStatement = connection.prepareStatement(updateRoomStatusSql)) {
+                        updateRoomStatusStatement.setInt(1, roomId);
+                        updateRoomStatusStatement.executeUpdate();
+
+                        // Kết thúc giao dịch và lưu các thay đổi
+                        connection.commit();
+
+                        JOptionPane.showMessageDialog(this, "Room registration successful!");
+
+                        Sirvice servicePage = new Sirvice();
+                        JFrame serviceFrame = new JFrame("Customer Service"); // Tiêu đề của cửa sổ Service
+                        serviceFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // Đóng cửa sổ Service không tắt toàn bộ ứng dụng
+                        serviceFrame.getContentPane().add(servicePage);
+                        serviceFrame.pack();
+                        serviceFrame.setVisible(true);
+
+                        // Đóng trang Register sau khi đã đăng kí thành công
+                        JFrame registerFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
+                        registerFrame.dispose();
+
+                    }
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+                JOptionPane.showMessageDialog(this, "Error connecting to database: " + ex.getMessage());
             }
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Lỗi kết nối đến cơ sở dữ liệu: " + ex.getMessage());
+
+        } else {
+            JOptionPane.showMessageDialog(this, "Identification card must have at least 11 characters ");
         }
 
     }//GEN-LAST:event_btnActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
+    private void txtcccdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtcccdActionPerformed
 
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Register.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+    }//GEN-LAST:event_txtcccdActionPerformed
 
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Register.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Register.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Register.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Register().setVisible(true);
-            }
-        });
-    }
+    // Hoặc gửi sự kiện đến lớp chứa JFrame và xử lý sự kiện đó ở JFrame
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btn;
+    private javax.swing.JToggleButton btn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JList<String> listroom;
     private javax.swing.JTextField txtcccd;
