@@ -28,12 +28,18 @@ public class Register extends javax.swing.JPanel {
     /**
      * Creates new form Register
      */
-    
+    private final SQLServerDataSource ds;
     private DefaultListModel<String> listModel;
 
     public Register() {
         initComponents();
-       
+        ds = new SQLServerDataSource();
+        ds.setUser("sa");
+        ds.setPassword("sqladmin");
+        ds.setDatabaseName("HotelManager");
+        ds.setServerName("DESKTOP-31C7ISK\\SQLEXPRESS");
+        ds.setPortNumber(1433);
+        ds.setEncrypt(false);
 
         listModel = new DefaultListModel<>();
         listroom.setModel(listModel);
